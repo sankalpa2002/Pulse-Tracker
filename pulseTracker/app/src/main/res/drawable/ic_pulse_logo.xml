@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Circle background -->
+    <path
+        android:fillColor="#33FFFFFF"
+        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2z" />
+    <!-- Pulse/heartbeat line -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.8"
+        android:fillColor="#00000000"
+        android:pathData="M3.5,12L8,12L9.5,7.5L11,16.5L12.5,5.5L14,15L15.5,9.5L16.5,12L20.5,12"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>
