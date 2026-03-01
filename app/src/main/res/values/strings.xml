@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Pulse Tracker</string>
+    <string name="app_name_display">PULSE TRACKER</string>
+    <string name="tagline">Track Your Fitness Journey</string>
+
+    <!-- Login -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_subtitle">Sign in to continue your journey</string>
+    <string name="hint_email">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="btn_sign_in">SIGN IN</string>
+    <string name="or_divider">OR</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="sign_up">\u0020Sign Up</string>
+
+    <!-- Register -->
+    <string name="create_account">Create Account</string>
+    <string name="register_subtitle">Join Pulse Tracker today</string>
+    <string name="hint_full_name">Full Name</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="btn_register">CREATE ACCOUNT</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="sign_in">\u0020Sign In</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_hint">Your fitness dashboard will appear here.\nOther team members will add more features.</string>
+    <string name="btn_logout">Logout</string>
+</resources>

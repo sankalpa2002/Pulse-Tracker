@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand Colors -->
+    <color name="pulse_primary">#E63946</color>
+    <color name="pulse_primary_dark">#C62828</color>
+    <color name="pulse_primary_light">#FF8A95</color>
+    <color name="pulse_secondary">#2B2D42</color>
+    <color name="pulse_accent">#FF6B6B</color>
+
+    <!-- Light Theme -->
+    <color name="light_primary">#E63946</color>
+    <color name="light_on_primary">#FFFFFF</color>
+    <color name="light_primary_container">#FFDAD6</color>
+    <color name="light_on_primary_container">#410002</color>
+    <color name="light_secondary">#2B2D42</color>
+    <color name="light_on_secondary">#FFFFFF</color>
+    <color name="light_secondary_container">#D6E3FF</color>
+    <color name="light_on_secondary_container">#0D1B2A</color>
+    <color name="light_surface">#FFFBFF</color>
+    <color name="light_on_surface">#201A1A</color>
+    <color name="light_surface_variant">#F4DDDD</color>
+    <color name="light_on_surface_variant">#534343</color>
+    <color name="light_outline">#857372</color>
+    <color name="light_error">#BA1A1A</color>
+    <color name="light_background">#FFFBFF</color>
+
+    <!-- Dark Theme -->
+    <color name="dark_primary">#FF6B6B</color>
+    <color name="dark_on_primary">#FFFFFF</color>
+    <color name="dark_primary_container">#93000F</color>
+    <color name="dark_on_primary_container">#FFDAD6</color>
+    <color name="dark_secondary">#A8C8FF</color>
+    <color name="dark_on_secondary">#003063</color>
+    <color name="dark_secondary_container">#00468A</color>
+    <color name="dark_on_secondary_container">#D6E3FF</color>
+    <color name="dark_surface">#201A1A</color>
+    <color name="dark_on_surface">#ECE0DF</color>
+    <color name="dark_surface_variant">#534343</color>
+    <color name="dark_on_surface_variant">#D8C2C1</color>
+    <color name="dark_outline">#A08C8C</color>
+    <color name="dark_error">#FFB4AB</color>
+    <color name="dark_background">#201A1A</color>
+
+    <!-- Gradient -->
+    <color name="gradient_start">#E63946</color>
+    <color name="gradient_end">#FF6B6B</color>
+
+    <!-- Standard -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
