@@ -105,9 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = etPassword.getText().toString().trim();
         
         // Validate user input before authentication
-        if (!validateLoginInput(email, password)) {
-            return;
-        }
+       
 
         // --- Validation ---
         if (TextUtils.isEmpty(email)) {
