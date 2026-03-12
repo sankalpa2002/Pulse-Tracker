@@ -33,13 +33,13 @@
     <color name="dark_on_secondary">#003063</color>
     <color name="dark_secondary_container">#00468A</color>
     <color name="dark_on_secondary_container">#D6E3FF</color>
-    <color name="dark_surface">#201A1A</color>
+    <color name="dark_surface">#0F2027</color>
     <color name="dark_on_surface">#ECE0DF</color>
-    <color name="dark_surface_variant">#534343</color>
+    <color name="dark_surface_variant">#1A3040</color>
     <color name="dark_on_surface_variant">#D8C2C1</color>
     <color name="dark_outline">#A08C8C</color>
     <color name="dark_error">#FFB4AB</color>
-    <color name="dark_background">#201A1A</color>
+    <color name="dark_background">#0F2027</color>
 
     <!-- Gradient -->
     <color name="gradient_start">#E63946</color>
