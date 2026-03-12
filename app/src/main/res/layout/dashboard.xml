@@ -8,25 +8,45 @@
     android:background="?attr/colorSurface"
     tools:context=".MainActivity">
 
-    <!-- Theme Toggle Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnThemeToggle"
-        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+    <!-- Top-right buttons -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_margin="16dp"
-        android:contentDescription="Toggle dark/light mode"
-        app:icon="@drawable/ic_dark_mode"
-        app:iconSize="24dp"
-        app:cornerRadius="14dp"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnThemeToggle"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="Toggle dark/light mode"
+            app:icon="@drawable/ic_dark_mode"
+            app:iconSize="24dp"
+            app:cornerRadius="14dp"
+            android:layout_marginEnd="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="Logout"
+            app:icon="@drawable/ic_logout"
+            app:iconSize="24dp"
+            app:cornerRadius="14dp" />
+
+    </LinearLayout>
 
     <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -231,13 +251,15 @@
                     app:iconGravity="textStart"
                     app:icon="@drawable/ic_pulse_logo" />
 
-                <!-- Logout Button -->
+                <!-- View Workout History Button -->
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnLogout"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:id="@+id/btnViewHistory"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/btn_logout"
+                    android:layout_height="56dp"
+                    android:text="Workout History"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"
                     app:cornerRadius="12dp" />
 
             </LinearLayout>
