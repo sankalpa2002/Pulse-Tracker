@@ -48,16 +48,15 @@ public class RegisterActivity extends AppCompatActivity {
         btnThemeToggle.setOnClickListener(v -> {
             sessionManager.setDarkMode(!sessionManager.isDarkMode());
             applyTheme();
+            recreate();
         });
     }
 
     private void applyTheme() {
-        if (sessionManager.hasDarkModePref()) {
-            AppCompatDelegate.setDefaultNightMode(
-                    sessionManager.isDarkMode()
-                            ? AppCompatDelegate.MODE_NIGHT_YES
-                            : AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        AppCompatDelegate.setDefaultNightMode(
+                sessionManager.isDarkMode()
+                        ? AppCompatDelegate.MODE_NIGHT_YES
+                        : AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     private void updateThemeIcon(MaterialButton btn) {
