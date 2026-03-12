@@ -169,12 +169,10 @@ public class WorkoutHistoryActivity extends AppCompatActivity implements Workout
     }
 
     private void applyTheme() {
-        if (sessionManager.hasDarkModePref()) {
-            AppCompatDelegate.setDefaultNightMode(
-                    sessionManager.isDarkMode()
-                            ? AppCompatDelegate.MODE_NIGHT_YES
-                            : AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        AppCompatDelegate.setDefaultNightMode(
+                sessionManager.isDarkMode()
+                        ? AppCompatDelegate.MODE_NIGHT_YES
+                        : AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     private void updateThemeIcon(MaterialButton btn) {
