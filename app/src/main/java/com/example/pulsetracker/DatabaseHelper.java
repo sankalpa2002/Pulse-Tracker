@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "PulseTracker.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Users table
     private static final String TABLE_USERS = "users";
@@ -21,6 +21,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_EMAIL = "email";
     private static final String COL_PASSWORD = "password";
     private static final String COL_CREATED_AT = "created_at";
+
+    // Workouts table
+    private static final String TABLE_WORKOUTS = "workouts";
+    private static final String COL_WORKOUT_ID = "id";
+    private static final String COL_USER_ID = "user_id";
+    private static final String COL_WORKOUT_TYPE = "workout_type";
+    private static final String COL_DURATION = "duration";
+    private static final String COL_CALORIES = "calories";
+    private static final String COL_NOTES = "notes";
+    private static final String COL_WORKOUT_DATE = "workout_date";
+    private static final String COL_WORKOUT_CREATED_AT = "created_at";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,12 +46,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_PASSWORD + " TEXT NOT NULL, "
                 + COL_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
         db.execSQL(createUsersTable);
+
+        String createWorkoutsTable = "CREATE TABLE " + TABLE_WORKOUTS + " ("
+                + COL_WORKOUT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_USER_ID + " INTEGER NOT NULL, "
+                + COL_WORKOUT_TYPE + " TEXT NOT NULL, "
+                + COL_DURATION + " INTEGER NOT NULL, "
+                + COL_CALORIES + " INTEGER NOT NULL, "
+                + COL_NOTES + " TEXT, "
+                + COL_WORKOUT_DATE + " DATETIME NOT NULL, "
+                + COL_WORKOUT_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP, "
+                + "FOREIGN KEY(" + COL_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + COL_ID + "))";
+        db.execSQL(createWorkoutsTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        onCreate(db);
+        if (oldVersion < 2) {
+            String createWorkoutsTable = "CREATE TABLE IF NOT EXISTS " + TABLE_WORKOUTS + " ("
+                    + COL_WORKOUT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + COL_USER_ID + " INTEGER NOT NULL, "
+                    + COL_WORKOUT_TYPE + " TEXT NOT NULL, "
+                    + COL_DURATION + " INTEGER NOT NULL, "
+                    + COL_CALORIES + " INTEGER NOT NULL, "
+                    + COL_NOTES + " TEXT, "
+                    + COL_WORKOUT_DATE + " DATETIME NOT NULL, "
+                    + COL_WORKOUT_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP, "
+                    + "FOREIGN KEY(" + COL_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + COL_ID + "))";
+            db.execSQL(createWorkoutsTable);
+        }
     }
 
     /**
@@ -128,5 +162,106 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return user;
+    }
+
+    // ==================== WORKOUT METHODS ====================
+
+    /**
+     * Inserts a new workout into the database.
+     */
+    public boolean addWorkout(int userId, String workoutType, int duration, int calories, String notes, String workoutDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_USER_ID, userId);
+        values.put(COL_WORKOUT_TYPE, workoutType);
+        values.put(COL_DURATION, duration);
+        values.put(COL_CALORIES, calories);
+        values.put(COL_NOTES, notes);
+        values.put(COL_WORKOUT_DATE, workoutDate);
+
+        long result = -1;
+        try {
+            result = db.insertOrThrow(TABLE_WORKOUTS, null, values);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result != -1;
+    }
+
+    /**
+     * Retrieves all workouts for a specific user, sorted by date descending.
+     */
+    public java.util.List<Workout> getWorkoutsByUser(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        java.util.List<Workout> workouts = new java.util.ArrayList<>();
+
+        String query = "SELECT * FROM " + TABLE_WORKOUTS + " WHERE " + COL_USER_ID + " = ? ORDER BY " + COL_WORKOUT_DATE + " DESC";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Workout workout = new Workout();
+                workout.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COL_WORKOUT_ID)));
+                workout.setUserId(cursor.getInt(cursor.getColumnIndexOrThrow(COL_USER_ID)));
+                workout.setWorkoutType(cursor.getString(cursor.getColumnIndexOrThrow(COL_WORKOUT_TYPE)));
+                workout.setDuration(cursor.getInt(cursor.getColumnIndexOrThrow(COL_DURATION)));
+                workout.setCalories(cursor.getInt(cursor.getColumnIndexOrThrow(COL_CALORIES)));
+                workout.setNotes(cursor.getString(cursor.getColumnIndexOrThrow(COL_NOTES)));
+                workout.setWorkoutDate(cursor.getString(cursor.getColumnIndexOrThrow(COL_WORKOUT_DATE)));
+                workout.setCreatedAt(cursor.getString(cursor.getColumnIndexOrThrow(COL_WORKOUT_CREATED_AT)));
+                workouts.add(workout);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return workouts;
+    }
+
+    /**
+     * Retrieves a single workout by ID.
+     */
+    public Workout getWorkoutById(int workoutId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_WORKOUTS + " WHERE " + COL_WORKOUT_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(workoutId)});
+
+        Workout workout = null;
+        if (cursor.moveToFirst()) {
+            workout = new Workout();
+            workout.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COL_WORKOUT_ID)));
+            workout.setUserId(cursor.getInt(cursor.getColumnIndexOrThrow(COL_USER_ID)));
+            workout.setWorkoutType(cursor.getString(cursor.getColumnIndexOrThrow(COL_WORKOUT_TYPE)));
+            workout.setDuration(cursor.getInt(cursor.getColumnIndexOrThrow(COL_DURATION)));
+            workout.setCalories(cursor.getInt(cursor.getColumnIndexOrThrow(COL_CALORIES)));
+            workout.setNotes(cursor.getString(cursor.getColumnIndexOrThrow(COL_NOTES)));
+            workout.setWorkoutDate(cursor.getString(cursor.getColumnIndexOrThrow(COL_WORKOUT_DATE)));
+            workout.setCreatedAt(cursor.getString(cursor.getColumnIndexOrThrow(COL_WORKOUT_CREATED_AT)));
+        }
+        cursor.close();
+        return workout;
+    }
+
+    /**
+     * Updates an existing workout.
+     */
+    public boolean updateWorkout(int workoutId, String workoutType, int duration, int calories, String notes, String workoutDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_WORKOUT_TYPE, workoutType);
+        values.put(COL_DURATION, duration);
+        values.put(COL_CALORIES, calories);
+        values.put(COL_NOTES, notes);
+        values.put(COL_WORKOUT_DATE, workoutDate);
+
+        int rowsUpdated = db.update(TABLE_WORKOUTS, values, COL_WORKOUT_ID + " = ?", new String[]{String.valueOf(workoutId)});
+        return rowsUpdated > 0;
+    }
+
+    /**
+     * Deletes a workout by ID.
+     */
+    public boolean deleteWorkout(int workoutId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete(TABLE_WORKOUTS, COL_WORKOUT_ID + " = ?", new String[]{String.valueOf(workoutId)});
+        return rowsDeleted > 0;
     }
 }
