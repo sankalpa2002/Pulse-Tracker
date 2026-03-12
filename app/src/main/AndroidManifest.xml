@@ -28,6 +28,18 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".AddWorkoutActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".UpdateWorkoutActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".WorkoutHistoryActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
